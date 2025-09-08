@@ -1,14 +1,15 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
+pkgbase=calamares-src
 pkgver=3.4.0
 _pkgver=3.4.0
 pkgrel=1
-_commit=8f7557d820c551890d537fe999775ed047528d26
+_commit=549cf1989696b9a972304b710a867cc7e8a083ee
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=('BSD-2-Clause AND CC0-1.0 AND CC-BY-4.0 AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-3.0-or-later AND MIT')
-url="https://gitlab.manjaro.org/applications/calamares"
+url="https://github.com/kamarada/calamares-src"
 depends=('kconfig' 'kcoreaddons' 'kiconthemes' 'ki18n' 'solid' 'yaml-cpp' 'kpmcore'
 	'boost-libs' 'ckbcomp' 'hwinfo' 'qt6-svg' 'polkit-qt6'
 	'squashfs-tools' 'libpwquality' 'python')
@@ -19,14 +20,14 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
 source+=(#"$pkgname-$pkgver.tar.gz::$url/-/archive/v$pkgver/calamares-v$pkgver.tar.gz"
-         "$pkgname-$pkgver-$pkgrel.tar.gz::$url/-/archive/$_commit/$pkgname-$_commit.tar.gz"
+         "$pkgbase-$pkgver-$pkgrel.tar.gz::$url/archive/$_commit.tar.gz"
         )
-sha256sums=('2c50a9ff43a127167535d16e6a3a59446ae73cff1c5c7eddc7bc48d8a2eebe29')
+sha256sums=('6639f5460f59eeb1011637cbbb75e64cc80abc58cb347a411b9b165d3916824b')
 
 prepare() {
-	mv ${srcdir}/calamares-${_commit} ${srcdir}/calamares-${pkgver}
+	mv ${srcdir}/${pkgbase}-${_commit} ${srcdir}/${pkgname}-${pkgver}
 	#mv ${srcdir}/calamares-v${pkgver} ${srcdir}/calamares-${pkgver}
-	cd ${srcdir}/calamares-${pkgver}
+	cd ${srcdir}/${pkgname}-${pkgver}
 	
 	# change version
 	sed -i -e "s|$pkgver|$_pkgver|g" CMakeLists.txt
@@ -38,7 +39,7 @@ prepare() {
 	sed -i -e "s|CALAMARES_VERSION_RC 1|CALAMARES_VERSION_RC 0|g" CMakeLists.txt
 
 	# change branding
-	sed -i -e "s/default/manjaro/g" src/branding/CMakeLists.txt
+	sed -i -e "s/default/kamarada/g" src/branding/CMakeLists.txt
 	
 	# Apply patches
 	local src
@@ -52,7 +53,7 @@ prepare() {
 }
 
 build() {
-	cd ${srcdir}/calamares-${pkgver}
+	cd ${srcdir}/${pkgname}-${pkgver}
 
 	mkdir -p build
 	cd build
@@ -70,7 +71,7 @@ build() {
 }
 
 package() {
-	cd ${srcdir}/calamares-${pkgver}/build
+	cd ${srcdir}/${pkgname}-${pkgver}/build
 	make DESTDIR="$pkgdir" install
 	install -Dm644 "../data/manjaro-icon.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/calamares.svg"
 	install -Dm644 "../data/calamares.desktop" "$pkgdir/usr/share/applications/calamares.desktop"
@@ -85,5 +86,5 @@ package() {
 	sed -i -e 's/-systemd//' "$pkgdir/usr/share/calamares/settings.conf"
 	
 	# fix branding install
-	cp -av "../src/branding/manjaro" "$pkgdir/usr/share/calamares/branding/"
+	cp -av "../src/branding/kamarada" "$pkgdir/usr/share/calamares/branding/"
 }
