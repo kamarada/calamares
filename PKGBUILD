@@ -4,8 +4,8 @@ pkgname=calamares
 pkgbase=calamares-src
 pkgver=3.4.0
 _pkgver=3.4.0
-pkgrel=1
-_commit=549cf1989696b9a972304b710a867cc7e8a083ee
+pkgrel=2
+_commit=f9a82a9ec201f3fa0a31f195e6fd566201f34426
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=('BSD-2-Clause AND CC0-1.0 AND CC-BY-4.0 AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-3.0-or-later AND MIT')
@@ -22,7 +22,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
 source+=(#"$pkgname-$pkgver.tar.gz::$url/-/archive/v$pkgver/calamares-v$pkgver.tar.gz"
          "$pkgbase-$pkgver-$pkgrel.tar.gz::$url/archive/$_commit.tar.gz"
         )
-sha256sums=('6639f5460f59eeb1011637cbbb75e64cc80abc58cb347a411b9b165d3916824b')
+sha256sums=('1f216bdff214c98288b301b0765948d3994bb4b68ba5e2f250fa2531a53d3db3')
 
 prepare() {
 	mv ${srcdir}/${pkgbase}-${_commit} ${srcdir}/${pkgname}-${pkgver}
@@ -68,6 +68,11 @@ build() {
                               dummycpp dummypythonqt \
                               services-openrc"
         make
+
+    # Translate the installation slideshow
+	cd "../src/branding/kamarada/slideshow/"
+	/usr/lib/qt6/bin/lrelease *.ts
+	rm *.ts
 }
 
 package() {
