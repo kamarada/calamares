@@ -1,11 +1,12 @@
-# Maintainer: Philip Müller <philm[at]manjaro[dog]org>
+# Maintainer: Antonio Medeiros <linuxkamarada@gmail.com>
+# Contributor: Philip Müller <philm[at]manjaro[dog]org>
 
 pkgname=calamares
 pkgbase=calamares-src
 pkgver=3.4.0
 _pkgver=3.4.0
-pkgrel=2
-_commit=f9a82a9ec201f3fa0a31f195e6fd566201f34426
+pkgrel=3
+_commit=7b360d963d2ab62bf773f3e7b1af355f1a7fa813
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=('BSD-2-Clause AND CC0-1.0 AND CC-BY-4.0 AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-3.0-or-later AND MIT')
@@ -22,7 +23,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
 source+=(#"$pkgname-$pkgver.tar.gz::$url/-/archive/v$pkgver/calamares-v$pkgver.tar.gz"
          "$pkgbase-$pkgver-$pkgrel.tar.gz::$url/archive/$_commit.tar.gz"
         )
-sha256sums=('1f216bdff214c98288b301b0765948d3994bb4b68ba5e2f250fa2531a53d3db3')
+sha256sums=('2fc74bb18798d233b6b808bfd1f8b9a3a96d03f2fbb3fc9eea69c8579381189f')
 
 prepare() {
 	mv ${srcdir}/${pkgbase}-${_commit} ${srcdir}/${pkgname}-${pkgver}
@@ -68,11 +69,6 @@ build() {
                               dummycpp dummypythonqt \
                               services-openrc"
         make
-
-    # Translate the installation slideshow
-	cd "../src/branding/kamarada/slideshow/"
-	/usr/lib/qt6/bin/lrelease *.ts
-	rm *.ts
 }
 
 package() {
