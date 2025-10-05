@@ -1,11 +1,11 @@
 # Maintainer: Antonio Medeiros <linuxkamarada@gmail.com>
 # Contributor: Philip Müller <philm[at]manjaro[dog]org>
 
-pkgname=calamares
+pkgname=calamares-kamarada
 pkgbase=calamares-src
 pkgver=3.4.0
 _pkgver=3.4.0
-pkgrel=5
+pkgrel=1
 _commit=e34a9daf2e2dfa787677181aced19ff6e3c120cd
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
