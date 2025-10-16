@@ -5,11 +5,11 @@ pkgname=calamares-kamarada
 pkgbase=calamares-src
 pkgver=3.4.0
 _pkgver=3.4.0
-pkgrel=2
+pkgrel=3
 _commit=8f9fa8814e054db1b45525e9a537991ba9c77295
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
-url="https://gitlab.manjaro.org/applications/calamares"
+url="https://github.com/kamarada/calamares-src"
 license=(
   'BSD-2-Clause'
   'CC0-1.0'
